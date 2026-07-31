@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- BUILD WORLD WITH EXACTLY 15 PHOTO MEMORIES ---
     const memoryItems = [];
     for (let i = 1; i <= 15; i++) {
-      memoryItems.push({ type: "image", src: `assets/images/photo${i}.jpg` });
+      memoryItems.push({ type: "image", src: `assets/images/photo${i}.JPG` });
     }
   
     const npcGlossary = ["🐢", "🍄", "🐉", "🦀", "🦖"];
