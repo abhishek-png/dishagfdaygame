@@ -21,10 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const finalVoucherScratch = document.getElementById("final-voucher-scratch");
   
     // World Settings
-    const worldHeight = 8000;
+    const worldHeight = 6000;
     const worldWidth = window.innerWidth;
-    const playerSizeWidth = 90;
-    const playerSizeHeight = 110;
+    const playerSizeWidth = 120;
+    const playerSizeHeight = 145;
   
     let playerX = (worldWidth / 2) - (playerSizeWidth / 2);
     let playerY = 120;
@@ -113,12 +113,11 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(gameLoop);
     });
   
-    // --- BUILD WORLD WITH PLATFORMS & NPCs ---
+    // --- BUILD WORLD WITH EXACTLY 15 PHOTO MEMORIES ---
     const memoryItems = [];
-    for (let i = 1; i <= 20; i++) memoryItems.push({ type: "image", src: `assets/images/photo${i}.jpg` });
-    for (let i = 1; i <= 10; i++) memoryItems.push({ type: "video", src: `assets/videos/video${i}.mp4` });
-  
-    memoryItems.sort(() => Math.random() - 0.5);
+    for (let i = 1; i <= 15; i++) {
+      memoryItems.push({ type: "image", src: `assets/images/photo${i}.jpg` });
+    }
   
     const npcGlossary = ["🐢", "🍄", "🐉", "🦀", "🦖"];
   
@@ -146,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
         memoryBlock.dataset.itemIndex = index;
         platformDiv.appendChild(memoryBlock);
   
-        // Add Dynamic Moving Background NPCs around platform
+        // Add Moving Background NPCs
         const npcDiv = document.createElement("div");
         npcDiv.className = "moving-npc";
         npcDiv.innerText = npcGlossary[index % npcGlossary.length];
@@ -167,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
       verticalWorld.appendChild(flagDiv);
     }
   
-    // --- DUAL CONTROLS JOYSTICK (TOUCH + MOUSE) ---
+    // --- CONTROLS JOYSTICK (TOUCH + MOUSE) ---
     function handleJoystickStart(clientX, clientY) {
       joystickActive = true;
       joystickStartX = clientX;
@@ -206,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
       speedX = 0; speedY = 0;
     }
   
-    // Touch Controls
+    // Touch Events
     joystickContainer.addEventListener("touchstart", (e) => {
       e.preventDefault();
       handleJoystickStart(e.touches[0].clientX, e.touches[0].clientY);
@@ -218,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     window.addEventListener("touchend", handleJoystickEnd);
   
-    // Mouse Controls (For Desktop Testing)
+    // Mouse Events
     joystickContainer.addEventListener("mousedown", (e) => {
       e.preventDefault();
       handleJoystickStart(e.clientX, e.clientY);
@@ -266,9 +265,9 @@ document.addEventListener("DOMContentLoaded", () => {
       verticalWorld.style.transform = `translateY(${currentScrollY}px)`; 
     }
   
-    // --- COLLISIONS & INTERACTIONS ---
+    // --- INTERACTIONS ---
     function checkDynamicContacts() {
-      const characterHeight = 110;
+      const characterHeight = 145;
       const blocks = document.querySelectorAll(".vertical-interactable");
       
       // Check Memory Blocks
@@ -295,9 +294,9 @@ document.addEventListener("DOMContentLoaded", () => {
           }
       });
   
-      // Check Harmless NPC Engagement Touch Effects
+      // Check Harmless NPC Engagement Effects
       npcList.forEach((npc) => {
-        if (Math.abs(playerX - npc.x) < 50 && Math.abs(playerY - npc.y) < 60) {
+        if (Math.abs(playerX - npc.x) < 60 && Math.abs(playerY - npc.y) < 70) {
           if (!npc.element.classList.contains("npc-touch-effect")) {
             npc.element.classList.add("npc-touch-effect");
             setTimeout(() => npc.element.classList.remove("npc-touch-effect"), 600);
@@ -321,21 +320,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // --- MODAL CONTROLS ---
     function openMemoryModal(item) {
-      modalBody.innerHTML = "";
-      if (item.type === "image") {
-        modalBody.innerHTML = `<img src="${item.src}" alt="Sweet Memory Photo" onError="this.src='https://via.placeholder.com/400x300?text=Grand+Memory+Photo'">`;
-      } else {
-        modalBody.innerHTML = `<video src="${item.src}" controls autoplay loop></video>`;
-      }
+      modalBody.innerHTML = `<img src="${item.src}" alt="Sweet Memory Photo" onError="this.src='https://via.placeholder.com/400x300?text=Grand+Memory+Photo'">`;
       memoryModal.classList.remove("hidden");
     }
   
     closeModal.addEventListener("click", () => {
-      const videoElement = modalBody.querySelector('video');
-      if (videoElement) {
-          videoElement.pause();
-          videoElement.currentTime = 0;
-      }
       memoryModal.classList.add("hidden");
     });
   
