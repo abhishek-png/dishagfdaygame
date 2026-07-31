@@ -1,0 +1,262 @@
+:root {
+    --pink: #ffb7c5;
+    --soft-pink: #ffe4e1;
+    --lime: #d4edda;
+    --yellow: #fff3cd;
+    --turquoise: #40e0d0;
+    --dark-text: #2c3e50;
+    --ground: #228b22;
+    --hill: #a2c69f;
+    --shadow-color: rgba(0,0,0,0.25);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+    user-select: none;
+    touch-action: none; 
+  }
+  
+  html, body { 
+    height: 100%; 
+    overflow: hidden; 
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body.mobile-portrait {
+    background-color: var(--soft-pink);
+    color: var(--dark-text);
+    width: 100vw; height: 100vh;
+  }
+  
+  /* Screen Management */
+  .screen {
+    display: none; width: 100%; height: 100%;
+    position: absolute; top: 0; left: 0; overflow: hidden;
+  }
+  
+  .screen.active {
+    display: flex; justify-content: center; align-items: center;
+  }
+  
+  /* Scratch Screen */
+  #scratch-screen {
+    background: linear-gradient(135deg, var(--pink), var(--turquoise));
+    text-align: center;
+  }
+  
+  .scratch-card-wrapper.mobile-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px; border-radius: 25px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    max-width: 320px; width: 85%;
+    display: flex; flex-direction: column; align-items: center; gap: 15px;
+  }
+  
+  .scratch-container.mobile-canvas-container {
+    position: relative; width: 280px; height: 140px;
+    border-radius: 12px; overflow: hidden; border: 3px solid #ddd;
+  }
+  
+  .scratch-reveal {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #fdf2f2;
+    display: flex; justify-content: center; align-items: center;
+    padding: 10px; text-align: center;
+  }
+  
+  .reveal-text {
+    font-weight: 700; color: #c9184a; font-size: 1.1rem; line-height: 1.3;
+  }
+  
+  #scratch-canvas, #voucher-canvas {
+    position: absolute; top: 0; left: 0; cursor: pointer; z-index: 5;
+  }
+  
+  #play-tab { margin-top: 10px; width: 100%; animation: fadeIn 0.8s forwards; }
+  
+  .btn.grand-btn {
+    background-color: var(--turquoise); border: none;
+    padding: 16px 32px; font-size: 1.2rem; font-weight: bold;
+    color: #fff; border-radius: 40px; cursor: pointer;
+    box-shadow: 0 6px 18px rgba(64, 224, 208, 0.5);
+    transition: all 0.3s ease; width: 100%;
+  }
+  
+  .btn.grand-btn:active { transform: scale(0.96); }
+  
+  /* Game World */
+  #game-screen { background: linear-gradient(to top, var(--ground) 0%, #87ceeb 30%, #ade8f4 70%, #fff 100%); }
+  
+  #vertical-world {
+    position: absolute; bottom: 0; left: 0;
+    width: 100vw; height: 8000px;
+    transition: transform 0.05s linear;
+  }
+  
+  /* Multi-layered visual background pattern */
+  #vertical-world::after {
+    content: '';
+    position: absolute; top: 120px; left: 0; width: 100%; height: calc(100% - 120px);
+    background: 
+      radial-gradient(ellipse at bottom, var(--hill) 60%, transparent 100%) -20px 80% / 150px 100px repeat-y,
+      radial-gradient(circle, #228b22) 30px 40% / 40px 40px repeat-y,
+      linear-gradient(45deg, #1b731b 25%, transparent 25%) 50px 100px / 80px 160px repeat-y,
+      #87ceeb;
+    background-size: 150px 100px, 40px 40px, 80px 160px, 100% 100%;
+    z-index: 1; opacity: 0.5;
+  }
+  
+  .game-ground-layer {
+    position: absolute; bottom: 0; width: 100%; height: 120px;
+    background: repeating-linear-gradient(90deg, #8b5a2b, #8b5a2b 40px, #a0522d 40px, #a0522d 80px);
+    border-top: 15px solid #1a6e1a; z-index: 2;
+  }
+  
+  /* India Gate & Background Decor Elements */
+  .landmark.india-gate {
+    position: absolute; bottom: 120px; left: 20px;
+    font-size: 90px; z-index: 3; line-height: 1;
+  }
+  
+  .bg-feature {
+    position: absolute; font-size: 45px; z-index: 3; opacity: 0.95;
+  }
+  .beach-zone-1 { bottom: 1800px; right: 15px; }
+  .beach-zone-2 { bottom: 4500px; left: 15px; }
+  
+  /* Large Character */
+  .large-character {
+    position: absolute; bottom: 120px;
+    left: calc(50vw - 45px);
+    width: 200px; height: 320px;
+    background: url('assets/images/mario-female.png') no-repeat center/contain;
+    z-index: 100;
+    transition: bottom 0.05s linear, left 0.05s linear;
+  }
+  
+  /* Platforms & Interactive Elements */
+  .platform {
+    position: absolute; width: 160px; height: 25px;
+    background: #cd853f; border: 3px solid #8b4513; border-radius: 4px;
+    z-index: 50; box-shadow: 0 4px 0 #6d3511;
+  }
+  
+  .vertical-interactable {
+    position: absolute; bottom: 25px; left: calc(50% - 25px);
+    width: 50px; height: 50px;
+    background-color: var(--yellow); border: 3px solid #d4a017; border-radius: 12px;
+    display: flex; justify-content: center; align-items: center;
+    font-family: 'Press Start 2P', cursive; font-size: 24px;
+    cursor: pointer; z-index: 60; box-shadow: 0 5px 0 #b38600;
+    animation: verticalBounce 1.5s infinite alternate;
+  }
+  
+  @keyframes verticalBounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+  }
+  
+  /* Dynamic Moving Characters */
+  .moving-npc {
+    position: absolute; font-size: 38px; z-index: 55;
+    transition: transform 0.2s;
+  }
+  
+  .npc-touch-effect {
+    filter: brightness(1.8) drop-shadow(0 0 12px gold);
+    transform: scale(1.3) translateY(-5px) !important;
+  }
+  
+  .final-flag-point {
+    position: absolute; bottom: 7800px; left: calc(50vw - 40px);
+    font-size: 80px; z-index: 70;
+  }
+  
+  /* Sky Background Animations */
+  .game-sky { position: absolute; top: 0; left: 0; width: 100vw; height: 100%; pointer-events: none; z-index: 4; }
+  .cloud { position: absolute; width: 140px; height: 55px; background: #fff; border-radius: 50px; opacity: 0.9; }
+  .cloud-1 { top: 2%; left: 10%; } .cloud-2 { top: 5%; right: 15%; }
+  
+  .bird { position: absolute; font-size: 32px; animation: flyBird 18s linear infinite; }
+  .bird-1 { top: 7%; left: -50px; } .bird-2 { top: 3%; left: -150px; animation-delay: 6s; }
+  
+  .dragon { position: absolute; font-size: 55px; animation: flyDragon 25s linear infinite; }
+  .dragon-1 { top: 12%; right: -80px; animation-delay: 2s; }
+  
+  @keyframes flyBird {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(100vw + 200px)); }
+  }
+  
+  @keyframes flyDragon {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(-50vw) translateY(40px); }
+    100% { transform: translateX(-110vw) translateY(0); }
+  }
+  
+  /* VIRTUAL JOYSTICK */
+  #joystick-container {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.85);
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    cursor: grab;
+  }
+  
+  #joystick-container:active { cursor: grabbing; }
+  
+  #joystick-knob {
+    width: 60px;
+    height: 60px;
+    background: var(--turquoise);
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    position: relative;
+    pointer-events: none;
+  }
+  
+  /* MODALS */
+  .modal {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+    pointer-events: auto;
+  }
+  
+  .modal-content.mobile-modal-content {
+    background: white; padding: 25px; border-radius: 20px;
+    max-width: 90%; width: 340px; text-align: center;
+    position: relative; max-height: 80%; overflow-y: auto;
+  }
+  
+  #modal-body img, #modal-body video { max-width: 100%; border-radius: 15px; object-fit: cover; }
+  
+  /* FINAL SCREEN */
+  #final-voucher-scratch {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffe4e1 100%);
+    z-index: 1100; text-align: center;
+  }
+  
+  .gold-card { border: 4px solid #d4a017; box-shadow: 0 0 30px rgba(212, 160, 23, 0.4); }
+  .voucher-revealed-img { width: 100%; max-height: 140px; object-fit: contain; }
+  
+  .final-ashu-msg {
+    color: #c9184a; font-size: 1.1rem; margin-top: 15px; margin-bottom: 5px; font-weight: 700;
+    padding: 0 10px;
+  }
+  .author-tag { font-size: 1rem; text-align: center; margin-bottom: 10px; color: #6c757d;}
+  
+  .close-btn { position: absolute; top: 15px; right: 20px; font-size: 32px; cursor: pointer; color: #aaa; }
+  .hidden { display: none !important; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

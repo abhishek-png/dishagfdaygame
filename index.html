@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy Girlfriend's Day! ❤️</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="mobile-portrait">
+
+  <audio id="bg-audio" loop preload="auto">
+    <source src="assets/audio/bg-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="scratch-screen" class="screen active">
+    <div class="scratch-card-wrapper mobile-card">
+      <h2>A Special Coupon For You! 🎁</h2>
+      <p>Scratch to reveal your gift!</p>
+      
+      <div class="scratch-container mobile-canvas-container">
+        <div class="scratch-reveal">
+          <p class="reveal-text">"Coupon? Meri toh Lautry lag gayi jab se aap life mein aayi ho" ❤️</p>
+        </div>
+        <canvas id="scratch-canvas" width="300" height="150"></canvas>
+      </div>
+
+      <div id="play-tab" class="hidden">
+        <p>This journey is all for you. Hit play 🎶</p>
+        <button id="start-game-btn" class="btn grand-btn">Start Adventure 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="game-screen" class="screen">
+    
+    <div class="game-sky">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="bird bird-1">🕊️</div>
+      <div class="bird bird-2">🕊️</div>
+      <div class="dragon dragon-1">🐉</div>
+    </div>
+
+    <div id="vertical-world">
+      <div class="game-ground-layer"></div>
+
+      <div class="landmark india-gate" title="India Gate, Delhi">🏛️</div>
+
+      <div class="bg-feature beach-zone-1">🌴 🌊 🌴</div>
+      <div class="bg-feature beach-zone-2">🌴 🌊 🌴</div>
+
+      <div id="player" class="large-character"></div>
+    </div>
+
+    <div id="joystick-container">
+      <div id="joystick-knob"></div>
+    </div>
+
+  </div>
+
+  <div id="memory-modal" class="modal hidden">
+    <div class="modal-content mobile-modal-content">
+      <span class="close-btn">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="final-voucher-scratch" class="screen hidden">
+      <div class="scratch-card-wrapper mobile-card gold-card">
+          <h2>Scratch to reveal your special gift code! 🪙</h2>
+          <div class="scratch-container mobile-canvas-container voucher-scratch-container">
+            <div class="scratch-reveal voucher-final-content">
+                <img src="assets/images/voucher-ss.png" alt="Your Final Gift Voucher" class="voucher-revealed-img">
+            </div>
+            <canvas id="voucher-canvas" width="300" height="150"></canvas>
+          </div>
+          
+          <div id="final-message-container">
+              <p class="final-ashu-msg">Happy Girlfriend's day to the sexiest hottest and the most amazing lady on this planet. I love you</p>
+              <h3 class="author-tag">- Your Ashu ❤️</h3>
+          </div>
+      </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
